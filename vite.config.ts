@@ -2,7 +2,8 @@ import {defineConfig} from 'vite'
 import react from '@vitejs/plugin-react'
 import dts from "vite-plugin-dts";
 
-export default defineConfig({
+export default defineConfig(({command}) => ({
+  publicDir: command === 'build' ? false : 'public',
   plugins: [
     react(),
     dts({
@@ -26,7 +27,7 @@ export default defineConfig({
       },
     },
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      external: ['react', 'react-dom',],
       output: {
         globals: {
           react: 'WegarPackageReact',
@@ -36,4 +37,4 @@ export default defineConfig({
     },
   }
 
-})
+}))
