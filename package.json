@@ -1,7 +1,7 @@
 {
   "name": "wegar-remote-component",
   "private": false,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "Wegar 远程组件加载器",
   "author": {
@@ -21,8 +21,7 @@
     "preview": "vite preview",
     "patch": "pnpm version patch && pnpm build && pnpm publish"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "optionalDependencies": {
     "@eslint/js": "^9.21.0",
     "@types/react": "^19.0.10",
