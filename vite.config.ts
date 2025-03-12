@@ -8,6 +8,7 @@ export default defineConfig(({command}) => ({
     react(),
     dts({
       rollupTypes: false,
+      exclude: ['src/main.tsx'],
       tsconfigPath: './tsconfig.app.json',
     }),
   ],

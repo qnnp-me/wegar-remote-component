@@ -43,6 +43,7 @@
     "dist/*"
   ],
   "main": "./dist/index.mjs",
+  "types": "./dist/RemoteComponent.d.ts",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   }
