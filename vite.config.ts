@@ -27,6 +27,9 @@ export default defineConfig(({command}) => ({
         return 'index.js'
       },
     },
+    define: {
+      'process.env': process.env
+    },
     rollupOptions: {
       external: ['react', 'react-dom',],
       output: {
@@ -37,5 +40,4 @@ export default defineConfig(({command}) => ({
       },
     },
   }
-
 }))
