@@ -52,7 +52,7 @@ const RemoteComponent = <T extends Record<string, unknown>>(
      */
     cache?: boolean
   }
-) => {
+): ReactNode => {
   const scriptFileName = url.replace(/.*?([^/.]+)[.\w]+$/, '$1');
   const [componentLoading, setComponentLoading] = useState(!window[(name || scriptFileName) as never])
 
