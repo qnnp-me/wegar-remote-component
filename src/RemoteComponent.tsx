@@ -44,7 +44,8 @@ export interface RemoteComponentProps<T extends Record<string, unknown>> {
 }
 
 function RemoteComponent<T extends Record<string, unknown>>(
-  {
+  componentProps: RemoteComponentProps<T>): ReactNode {
+  const {
     url,
     css = false,
     name,
@@ -53,18 +54,26 @@ function RemoteComponent<T extends Record<string, unknown>>(
     loading,
     fallback,
     cache = true
-  }: RemoteComponentProps<T>): ReactNode {
+  } = componentProps
+  // 获取文件名
   const scriptFileName = url.replace(/.*?([^/.]+)[.\w]+$/, '$1');
-  const [componentLoading, setComponentLoading] = useState(!window[(name || scriptFileName) as never])
+
+  const [UUID] = useState(`_WegarComponent-${crypto.randomUUID()}`)
+  const componentName = name || scriptFileName
+  const [componentLoading, setComponentLoading] = useState(!window[componentName as never])
 
   useEffect(() => {
-    if (cache && window[(name || scriptFileName) as never]) {
+    // 加载缓存组件
+    if (cache && (window[componentName as never] || window[UUID as never])) {
       setComponentLoading(false)
       return
     }
+    // 开始加载组件
     setComponentLoading(true)
     const scriptElement = document.createElement('script');
     scriptElement.src = url;
+    scriptElement.id = UUID
+    scriptElement.type = 'application/javascript'
     scriptElement.onload = () => {
       setComponentLoading(false)
       scriptElement.remove()
@@ -74,9 +83,9 @@ function RemoteComponent<T extends Record<string, unknown>>(
       scriptElement.remove()
     }
     document.body.appendChild(scriptElement);
-  }, [url, cache]);
+  }, [url, cache, componentName, UUID]);
   useEffect(() => {
-    if (css == true) {
+    if (css) {
       const linkElement = document.createElement('link');
       linkElement.href = url.replace(/[^/]+$/, `${scriptFileName}.css`);
       linkElement.rel = 'stylesheet';
@@ -85,12 +94,12 @@ function RemoteComponent<T extends Record<string, unknown>>(
         linkElement.remove()
       }
     }
-  }, [css]);
+  }, [css, scriptFileName, url]);
   if (componentLoading) {
     return loading ? createElement(loading) : children
   }
-  if (window[(name || scriptFileName) as never]) {
-    return createElement((window[(name || scriptFileName) as never] as never), props)
+  if (window[componentName as never] || typeof window[UUID as never] === 'function') {
+    return createElement(((window[componentName as never] || window[UUID as never]) as never), props)
   }
   return fallback && createElement(fallback)
 }
