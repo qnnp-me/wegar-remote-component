@@ -1,4 +1,5 @@
-import {createElement, FunctionComponent, ReactNode, useEffect, useState} from "react";
+import {FunctionComponent, ReactNode, useEffect, useState} from "react";
+import {jsx} from "react/jsx-runtime";
 
 export interface RemoteComponentProps<T extends Record<string, unknown>> {
   /**
@@ -43,8 +44,7 @@ export interface RemoteComponentProps<T extends Record<string, unknown>> {
   cache?: boolean
 }
 
-function RemoteComponent<T extends Record<string, unknown>>(
-  componentProps: RemoteComponentProps<T>): ReactNode {
+function RemoteComponent<T extends Record<string, unknown>>(componentProps: RemoteComponentProps<T>) {
   const {
     url,
     css = false,
@@ -96,12 +96,12 @@ function RemoteComponent<T extends Record<string, unknown>>(
     }
   }, [css, scriptFileName, url]);
   if (componentLoading) {
-    return loading ? createElement(loading) : children
+    return loading ? jsx(loading, null) : children
   }
   if (window[componentName as never] || typeof window[UUID as never] === 'function') {
-    return createElement(((window[componentName as never] || window[UUID as never]) as never), props)
+    return jsx(((window[componentName as never] || window[UUID as never]) as never), props)
   }
-  return fallback && createElement(fallback)
+  return fallback && jsx(fallback, null)
 }
 
 export default RemoteComponent
