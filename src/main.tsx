@@ -1,12 +1,14 @@
+import * as ReactDOMClient from 'react-dom/client'
 import {createRoot} from 'react-dom/client'
 import RemoteComponent from "./RemoteComponent.tsx";
 import {useStore} from "wegar-store";
 import * as React from "react";
 import {useState} from "react";
+import * as ReactDOM from 'react-dom';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 window.WegarPackageReact = React
+window.WegarPackageReactDOM = ReactDOM
+window.WegarPackageReactDOMClient = ReactDOMClient
 
 function App() {
   const [count, setCount] = useState(0)

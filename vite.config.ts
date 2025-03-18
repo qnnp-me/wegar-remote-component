@@ -36,6 +36,7 @@ export default defineConfig(({command}) => ({
         globals: {
           react: 'WegarPackageReact',
           'react-dom': 'WegarPackageReactDOM',
+          'react-dom/client': 'WegarPackageReactDOMClient',
         },
       },
     },
