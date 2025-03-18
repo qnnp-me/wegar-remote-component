@@ -24,7 +24,7 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "wegar-store": "^0.0.2"
+    "wegar-store": "^0.0.4"
   },
   "optionalDependencies": {
     "@eslint/js": "^9.22.0",

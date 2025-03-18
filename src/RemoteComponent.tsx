@@ -57,13 +57,12 @@ const RemoteComponent = <T extends Record<string, unknown>>(componentProps: Remo
     React?: typeof React
   }) | undefined
   if (componentLoading) {
-    return loading ? jsx(loading, null) : children
+    return loading ? jsx(loading, {}) : children
   }
-  console.log('render')
   if (componentFunction) {
-    return jsx(((window[componentName as never] || window[UUID as never]) as never), props)
+    return jsx(((window[componentName as never] || window[UUID as never]) as never), props || {})
   }
-  return fallback && jsx(fallback, null)
+  return fallback ? jsx(fallback, {}) : null
 };
 export default RemoteComponent
 

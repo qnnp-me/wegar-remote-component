@@ -32,13 +32,15 @@ function App() {
       </button>
     </div>
     {loadRemote ? <RemoteComponent
-      url={'/WegarRemoteSubComponentTest.umd.cjs'}
+      url={'/WegarRemoteSubComponentTest.u md.cjs'}
       css
       props={{
         useStore,
         count,
         setCount
-      }}>
+      }}
+      fallback={() => <div>Fallback</div>}
+    >
       Loading Remote Component...
     </RemoteComponent> : "Please Click Load Remote Component"}
   </div>
